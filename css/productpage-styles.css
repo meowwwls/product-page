@@ -438,14 +438,15 @@ product page styles
   left: 0;
   right: 0;
   bottom: 0;
-  background: transparent;
-  -webkit-transition: background 0.5s ease-in-out;
-  transition: background 0.5s ease-in-out;
+  opacity: 0;
+  background: -webkit-linear-gradient(rgba(0, 0 , 0, 0) 20%, rgba(0, 0, 0, 0.2));
+  background: linear-gradient(rgba(0, 0 , 0, 0) 20%, rgba(0, 0, 0, 0.2));
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .product-img-wrap:hover::after {
-  background: -webkit-linear-gradient(rgba(0, 0 , 0, 0) 20%, rgba(0, 0, 0, 0.2));
-  background: linear-gradient(rgba(0, 0 , 0, 0) 20%, rgba(0, 0, 0, 0.2));
+  opacity: 1;
 }
 
 .product-price {
