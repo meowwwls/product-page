@@ -6,15 +6,16 @@ const Products = props => {
     return (
       <Product
         key={item.id}
-        id={item.id}
-        src={item.src}
-        name={item.name}
+        // id={item.id}
+        // src={item.src}
+        // name={item.name}
+        product={item}
         updateCartFromList={props.updateCart}
-        sale={item.sale}
-        price={item.price}
-        desc={item.longdesc}
-        inCart={item.inCart}
-        inStock={item.stock}
+        // sale={item.sale}
+        // price={item.price}
+        // desc={item.longdesc}
+        // inCart={item.inCart}
+        // inStock={item.stock}
       />
     );
   });

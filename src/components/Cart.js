@@ -10,6 +10,7 @@ const Cart = props => {
       product={product}
       inc={props.inc}
       dec={props.dec}
+      updateQty={props.updateQty}
     />
   ));
 

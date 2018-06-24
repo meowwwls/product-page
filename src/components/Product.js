@@ -15,20 +15,26 @@ export default class Product extends Component {
   }
 
   handleClick() {
-    this.props.updateCartFromList(this.props.inCart, this.props.id);
+    this.props.updateCartFromList(
+      this.props.product.inCart,
+      this.props.product.id
+    );
   }
 
   render() {
-    const onSale = this.props.sale;
-    const price = onSale ? this.props.sale : this.props.price;
-    const inStock = this.props.inStock;
+    const onSale = this.props.product.sale;
+    const price = onSale ? this.props.product.sale : this.props.product.price;
+    const inStock = this.props.product.stock;
 
     const btnText = () => {
       let text;
 
-      if ((this.props.inCart && !inStock) || (this.props.inCart && inStock)) {
+      if (
+        (this.props.product.inCart && !inStock) ||
+        (this.props.product.inCart && inStock)
+      ) {
         text = 'Remove from Cart';
-      } else if (!this.props.inCart && inStock) {
+      } else if (!this.props.product.inCart && inStock) {
         text = 'Add to Cart';
       } else {
         text = 'Out of Stock';
@@ -40,11 +46,11 @@ export default class Product extends Component {
     return (
       <li className={'product' + (onSale ? ' sale' : '')}>
         <header>
-          <h3>{this.props.name}</h3>
-          <p>{this.props.desc}</p>
+          <h3>{this.props.product.name}</h3>
+          <p>{this.props.product.desc}</p>
         </header>
         <div>
-          <img src={this.props.src} alt={this.props.longdesc} />
+          <img src={this.props.product.src} alt={this.props.product.longdesc} />
         </div>
         <p>{price}</p>
         <div>

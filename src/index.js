@@ -161,15 +161,6 @@ class App extends Component {
   }
 
   render() {
-    // const tempCart = this.state.cart.map(product => (
-    //   <CartItem
-    //     key={`${product.id}-cart`}
-    //     product={product}
-    //     inc={this.increment}
-    //     dec={this.decrement}
-    //   />
-    // ));
-
     return (
       <div>
         <TopHeader promo={this.state.featuredPromo} cart={this.state.cart} />
@@ -188,9 +179,8 @@ class App extends Component {
           products={this.state.cart}
           inc={this.increment}
           dec={this.decrement}
+          updateQty={this.updateQuantity}
         />
-        {/* {tempCart} */}
-        {/* <div>Cart: {JSON.stringify(this.state.cart)}</div> */}
       </div>
     );
   }
