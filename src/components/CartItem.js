@@ -45,12 +45,12 @@ export default class CartItem extends Component {
 
   inc() {
     if (this.props.product.stock === 0) return;
-    this.setState({ qty: this.state.qty + 1 });
+    this.setState({ qty: parseInt(this.state.qty, 10) + 1 });
     this.props.inc(this.props.product.id, 1);
   }
 
   dec() {
-    this.setState({ qty: this.state.qty - 1 });
+    this.setState({ qty: parseInt(this.state.qty, 10) - 1 });
     this.props.dec(this.props.product.id, 1);
   }
 

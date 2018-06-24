@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
+import productData from './product-list.js';
+import { Price } from './helpers';
+
 import TopHeader from './components/TopHeader';
 import PageHeader from './components/PageHeader';
 import Categories from './components/Categories';
 import Products from './components/Products';
 import Cart from './components/Cart';
-import productData from './product-list.js';
+import CartSummary from './components/CartSummary';
 
 const Component = React.Component;
 
@@ -27,22 +30,49 @@ class App extends Component {
       order: {
         total: 0,
         subtotal: 0,
-        tax: 0.09,
+        taxRate: 0.09,
+        salesTax: 0,
         shipping: 7.99,
-        appliedPromo: null
+        appliedPromo: null,
+        discounts: 0
       },
       cartShown: false
     };
 
     this.updateOrder = this.updateOrder.bind(this);
+    this.applyPromo = this.applyPromo.bind(this);
     this.setProdAndCart = this.setProdAndCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
+    this.updateSummary = this.updateSummary.bind(this);
     this.updateCartFromList = this.updateCartFromList.bind(this);
   }
 
   updateStatus(status) {
     this.setState({ status });
+  }
+
+  updateSummary() {
+    const {
+      appliedPromo,
+      subtotal,
+      discounts,
+      shipping,
+      salesTax,
+      total
+    } = this.state.order;
+
+    return [
+      { label: 'Promo Applied', value: appliedPromo || 'none' },
+      { label: 'Subtotal', value: Price(subtotal) },
+      { label: 'Discounts', value: Price(discounts) },
+      { label: 'Shipping', value: Price(shipping) },
+      {
+        label: `Sales Tax (${this.state.order.taxRate * 100}%)`,
+        value: Price(salesTax)
+      },
+      { label: 'Total', value: Price(total) }
+    ];
   }
 
   setProdAndCart(products) {
@@ -51,22 +81,31 @@ class App extends Component {
   }
 
   updateOrder() {
+    const { taxRate, appliedPromo, shipping } = this.state.order;
+
     const subtotal = this.state.cart.reduce((sum, product) => {
       const price = product.sale || product.price;
       return sum + price * product.qty;
     }, 0);
 
-    const tax = subtotal * this.state.order.tax;
-    const shipping =
-      this.state.order.appliedPromo === 'ship4free'
-        ? 0
-        : this.state.order.shipping;
+    const salesTax = subtotal * taxRate;
+    const shippingCost = appliedPromo === 'ship4free' ? 0 : shipping;
     const discounts =
-      this.state.order.appliedPromo !== 'ship4free' && subtotal >= 50 ? 10 : 0;
-    const total = subtotal + tax + shipping - discounts;
+      appliedPromo === 'ship4free' ? 7.99 : subtotal >= 50 ? 10 : 0;
+    const total =
+      subtotal + salesTax + (shippingCost === 0 ? 0 : shippingCost - discounts);
+
+    console.log(shippingCost);
 
     this.setState({
-      order: { ...this.state.order, shipping, total, subtotal }
+      order: {
+        ...this.state.order,
+        shipping: shippingCost,
+        salesTax,
+        total,
+        subtotal,
+        discounts
+      }
     });
   }
 
@@ -115,6 +154,13 @@ class App extends Component {
     this.updateStatus(`${product.name} removed from cart`);
   }
 
+  applyPromo(promo) {
+    console.log('applying');
+
+    this.setState({ order: { ...this.state.order, appliedPromo: promo } });
+    setTimeout(this.updateOrder, 5);
+  }
+
   componentDidMount() {
     const randomNumber = Math.floor(Math.random() * this.state.promos.length);
 
@@ -125,32 +171,40 @@ class App extends Component {
   }
 
   render() {
+    const {
+      currentPage: page,
+      featuredPromo: promo,
+      cart,
+      products,
+      status,
+      promos
+    } = this.state;
+
     return (
       <div>
-        <TopHeader promo={this.state.featuredPromo} cart={this.state.cart} />
-        <PageHeader
-          page={this.state.currentPage}
-          pageTitle={this.state.currentPage + ' Prints'}
-        />
+        <TopHeader promo={promo} cart={cart} />
+        <PageHeader page={page} pageTitle={page + ' Prints'} />
         <Categories />
         <main>
-          <Products
-            products={this.state.products}
-            updateCart={this.updateCartFromList}
-          />
+          <Products products={products} updateCart={this.updateCartFromList} />
         </main>
 
         <Cart
           updateStatus={this.updateStatus}
-          products={this.state.products}
-          cart={this.state.cart}
+          products={products}
+          cart={cart}
           remove={this.removeFromCart}
           updateState={this.setProdAndCart}
           updateOrder={this.updateOrder}
         />
         <p aria-live="polite" role="status">
-          {this.state.status}
+          {status}
         </p>
+        <CartSummary
+          items={this.updateSummary()}
+          apply={this.applyPromo}
+          promos={promos}
+        />
       </div>
     );
   }
