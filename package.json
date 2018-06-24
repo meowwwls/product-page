@@ -1,0 +1,29 @@
+{
+  "name": "product-page-example-react",
+  "version": "1.0.0",
+  "description": "An example product page rebuilt in React",
+  "main": "app.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meowwwls/product-page.git"
+  },
+  "author": "meowwwls",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meowwwls/product-page/issues"
+  },
+  "homepage": "https://github.com/meowwwls/product-page#readme",
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "serve": "^9.1.0"
+  },
+  "devDependencies": {
+    "react-scripts": "^1.1.4"
+  }
+}
