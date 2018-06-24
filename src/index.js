@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import productData from './product-list.js';
 import { Price } from './helpers';
 
 import TopHeader from './components/TopHeader';
@@ -9,6 +8,8 @@ import Categories from './components/Categories';
 import Products from './components/Products';
 import Cart from './components/Cart';
 import CartSummary from './components/CartSummary';
+
+import productData from './product-list.js';
 
 const Component = React.Component;
 
