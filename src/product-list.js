@@ -1,14 +1,3 @@
-// const products = [
-//   {
-//     id: 1023993,
-//     name: 'Testigng 1'
-//   },
-//   {
-//     id: 292983,
-//     name: 'Another test'
-//   }
-// ];
-
 const products = [
   {
     id: 'art_vp_001',

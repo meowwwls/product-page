@@ -24,7 +24,8 @@ export default class Product extends Component {
   render() {
     const onSale = this.props.product.sale;
     const price = onSale ? this.props.product.sale : this.props.product.price;
-    const inStock = this.props.product.stock;
+    // const inStock = this.props.product.stock;
+    const inStock = this.props.product.stock !== 0;
 
     const btnText = () => {
       let text;
@@ -55,11 +56,10 @@ export default class Product extends Component {
         <p>{price}</p>
         <div>
           <Button
-            disabled={inStock}
+            disabled={!inStock}
             handler={this.handleClick}
             text={btnText()}
           />
-          {inStock.toString()}
         </div>
       </li>
     );

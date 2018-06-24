@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CartTally = props => (
-  <a href="#cart-header" className="top-cart-links" title="shopping cart">
+  <a href="#cart-header" className="top-cart-links" aria-label="shopping cart">
     <span className="top-cart">
       <svg
         xmlns="http://www.w3.org/2000/svg"

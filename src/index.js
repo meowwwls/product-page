@@ -5,7 +5,6 @@ import PageHeader from './components/PageHeader';
 import Categories from './components/Categories';
 import Products from './components/Products';
 import Cart from './components/Cart';
-import CartItem from './components/CartItem';
 import productData from './product-list.js';
 
 const Component = React.Component;
@@ -19,89 +18,56 @@ class App extends Component {
         { code: '10off50', onOrder: 'all orders over $50', promo: 'Save $10' }
       ],
       featuredPromo: {},
-      appliedPromo: null,
       products: [],
       cart: [],
       currentPage: 'Vintage Fashion',
       cartKey: 'vintageprints-react-shopping',
-      productKey: 'vintageprings-react-p'
+      productKey: 'vintageprings-react-p',
+      status: '',
+      order: {
+        total: 0,
+        subtotal: 0,
+        tax: 0.09,
+        shipping: 7.99,
+        appliedPromo: null
+      },
+      cartShown: false
     };
-    // subTotal: 0,
-    // tax: 0,
-    // shipping: 7.99,
-    // total: 0
+
+    this.updateOrder = this.updateOrder.bind(this);
     this.setProdAndCart = this.setProdAndCart.bind(this);
-    this.increment = this.increment.bind(this);
-    this.decrement = this.decrement.bind(this);
-    this.updateQuantity = this.updateQuantity.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
     this.updateCartFromList = this.updateCartFromList.bind(this);
+  }
+
+  updateStatus(status) {
+    this.setState({ status });
   }
 
   setProdAndCart(products) {
     this.setState({ cart: products.filter(item => item.inCart), products });
+    setTimeout(this.updateOrder, 5);
   }
 
-  increment(id) {
-    const products = [...this.state.products];
-    let product = products.find(item => item.id === id);
-    const index = products.findIndex(item => item.id === product.id);
+  updateOrder() {
+    const subtotal = this.state.cart.reduce((sum, product) => {
+      const price = product.sale || product.price;
+      return sum + price * product.qty;
+    }, 0);
 
-    if (product.stock > 0) {
-      const updatedProduct = {
-        ...product,
-        qty: product.qty + 1,
-        stock: product.stock - 1
-      };
+    const tax = subtotal * this.state.order.tax;
+    const shipping =
+      this.state.order.appliedPromo === 'ship4free'
+        ? 0
+        : this.state.order.shipping;
+    const discounts =
+      this.state.order.appliedPromo !== 'ship4free' && subtotal >= 50 ? 10 : 0;
+    const total = subtotal + tax + shipping - discounts;
 
-      products[index] = updatedProduct;
-    }
-
-    this.setProdAndCart(products);
-  }
-
-  decrement(id) {
-    const products = [...this.state.products];
-    let product = products.find(item => item.id === id);
-    const index = products.findIndex(item => item.id === product.id);
-
-    const updatedProduct = {
-      ...product,
-      qty: product.qty - 1,
-      stock: product.stock + 1
-    };
-
-    products[index] = updatedProduct;
-
-    if (updatedProduct.qty === 0) {
-      this.removeFromCart(id);
-    } else {
-      this.setProdAndCart(products);
-    }
-  }
-
-  updateQuantity(id, value) {
-    const products = [...this.state.products];
-    const index = products.findIndex(item => item.id === id);
-    const product = products[index];
-    let stock;
-
-    if (value <= 0) {
-      this.removeFromCart(id);
-      return;
-    } else if (value > product.stock) {
-      value = product.stock + product.qty;
-      stock = 0;
-    }
-
-    const updatedProduct = {
-      ...product,
-      qty: value,
-      stock
-    };
-
-    products[index] = updatedProduct;
-
-    this.setProdAndCart(products);
+    this.setState({
+      order: { ...this.state.order, shipping, total, subtotal }
+    });
   }
 
   updateCartFromList(inCart, id) {
@@ -127,8 +93,8 @@ class App extends Component {
 
       products[index] = updatedProduct;
     }
-
     this.setProdAndCart(products);
+    this.updateStatus(`${product.name} added to cart`);
   }
 
   removeFromCart(id) {
@@ -146,10 +112,8 @@ class App extends Component {
     products[index] = updatedProduct;
 
     this.setProdAndCart(products);
-    // this.setState({ cart: products.filter(item => item.inCart), products });
+    this.updateStatus(`${product.name} removed from cart`);
   }
-
-  componentDidUpdate() {}
 
   componentDidMount() {
     const randomNumber = Math.floor(Math.random() * this.state.promos.length);
@@ -175,12 +139,18 @@ class App extends Component {
             updateCart={this.updateCartFromList}
           />
         </main>
+
         <Cart
-          products={this.state.cart}
-          inc={this.increment}
-          dec={this.decrement}
-          updateQty={this.updateQuantity}
+          updateStatus={this.updateStatus}
+          products={this.state.products}
+          cart={this.state.cart}
+          remove={this.removeFromCart}
+          updateState={this.setProdAndCart}
+          updateOrder={this.updateOrder}
         />
+        <p aria-live="polite" role="status">
+          {this.state.status}
+        </p>
       </div>
     );
   }
