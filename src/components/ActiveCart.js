@@ -2,12 +2,17 @@ import React from 'react';
 import CartTableHead from './CartTableHead';
 import CartItem from './CartItem';
 
-const ActiveCart = props => {
-  const headers = ['Item', 'Price', 'Qty', 'Total', 'Remove'];
+const Component = React.Component;
 
-  const increment = (id, amt) => {
-    console.log('inc');
-    const products = [...props.products];
+export default class ActiveCart extends Component {
+  constructor(props) {
+    super(props);
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
+  }
+
+  increment(id, amt) {
+    const products = [...this.props.products];
     let product = products.find(item => item.id === id);
     const index = products.findIndex(item => item.id === product.id);
 
@@ -19,15 +24,15 @@ const ActiveCart = props => {
       };
 
       products[index] = updatedProduct;
-      props.updateState(products);
-      props.updateStatus(
+      this.props.updateState(products);
+      this.props.updateStatus(
         `${product.name} quantity is now ${updatedProduct.qty}`
       );
     }
-  };
+  }
 
-  const decrement = (id, amt) => {
-    const products = [...props.products];
+  decrement(id, amt) {
+    const products = [...this.props.products];
     let product = products.find(item => item.id === id);
     const index = products.findIndex(item => item.id === product.id);
 
@@ -40,32 +45,34 @@ const ActiveCart = props => {
     products[index] = updatedProduct;
 
     if (updatedProduct.qty === 0) {
-      props.remove(id);
+      this.props.remove(id);
     } else {
-      props.updateState(products);
-      props.updateStatus(
+      this.props.updateState(products);
+      this.props.updateStatus(
         `${product.name} quantity is now ${updatedProduct.qty}`
       );
     }
-  };
+  }
 
-  const items = props.cartItems.map(product => (
-    <CartItem
-      key={`${product.id}-cart`}
-      product={product}
-      inc={increment}
-      dec={decrement}
-      remove={props.remove}
-      updateOrder={props.updateOrder}
-    />
-  ));
+  render() {
+    const headers = ['Item', 'Price', 'Qty', 'Total', 'Remove'];
 
-  return (
-    <table>
-      <CartTableHead headings={headers} />
-      <tbody>{items}</tbody>
-    </table>
-  );
-};
+    const items = this.props.cartItems.map(product => (
+      <CartItem
+        key={`${product.id}-cart`}
+        product={product}
+        inc={this.increment}
+        dec={this.decrement}
+        remove={this.props.remove}
+        updateOrder={this.props.updateOrder}
+      />
+    ));
 
-export default ActiveCart;
+    return (
+      <table>
+        <CartTableHead headings={headers} />
+        <tbody>{items}</tbody>
+      </table>
+    );
+  }
+}
