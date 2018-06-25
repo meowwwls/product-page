@@ -2,7 +2,6 @@
   "name": "product-page-example-react",
   "version": "1.0.0",
   "description": "An example product page rebuilt in React",
-  "main": "app.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -17,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/meowwwls/product-page/issues"
   },
-  "homepage": "https://github.com/meowwwls/product-page#readme",
+  "homepage": "https://github.com/meowwwls/product-page",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
