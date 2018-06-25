@@ -7,7 +7,7 @@ const CartItemBtn = props => (
   <button
     aria-label={props.label}
     onClick={props.handler}
-    className={props.classNames}
+    className="btn qty-btn"
   >
     {props.task === 'remove' ? (
       <RemoveIcn />

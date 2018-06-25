@@ -63,7 +63,7 @@ export default class CartItem extends Component {
     const price = this.props.product.sale || this.props.product.price;
 
     return (
-      <tr>
+      <tr className="cart-item">
         <CartItemDesc product={this.props.product} />
         <CartItemQty
           product={this.props.product}

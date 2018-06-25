@@ -9,6 +9,7 @@ import Products from './components/Products';
 import Cart from './components/Cart';
 import CartSummary from './components/CartSummary';
 import CartCheckoutLinks from './components/CartCheckoutLinks';
+import SiteFooter from './components/SiteFooter';
 
 import productData from './product-list.js';
 
@@ -220,6 +221,7 @@ class App extends Component {
         <p aria-live="polite" role="status" className="sr-only">
           {status}
         </p>
+        <SiteFooter />
       </div>
     );
   }

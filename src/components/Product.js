@@ -1,18 +1,31 @@
 import React from 'react';
+import { Price } from '../helpers';
 import Button from './Button';
 
 const Component = React.Component;
 
 const Product = ({ product, updateCartFromList }) => {
   const onSale = product.sale;
-  const price = onSale ? product.sale : product.price;
   const inStock = product.stock !== 0;
+  const oos = !inStock && !product.inCart;
+
+  const price = (() => {
+    if (onSale) {
+      return (
+        <span>
+          <s>{Price(product.price)}</s> {Price(product.sale)}
+        </span>
+      );
+    } else {
+      return `${Price(product.price)}`;
+    }
+  })();
 
   const btnOpts = (() => {
     let text;
     let currentClass;
 
-    if ((product.inCart && !inStock) || (product.inCart && inStock)) {
+    if (product.inCart) {
       text = 'Remove from Cart';
       currentClass = 'added';
     } else if (!product.inCart && inStock) {
@@ -38,7 +51,7 @@ const Product = ({ product, updateCartFromList }) => {
   };
 
   return (
-    <li className="product">
+    <li className={`product ${oos ? ' oos' : ''}`}>
       <header>
         <h3 className="product-name">
           <a href="#">{product.name}</a>
@@ -54,7 +67,7 @@ const Product = ({ product, updateCartFromList }) => {
       <p className="product-price">{price}</p>
       <div className="product-add">
         <Button
-          disabled={!inStock}
+          disabled={oos}
           handler={() => updateCartFromList(product.inCart, product.id)}
           text={btnOpts.text}
           classNames={`btn ${btnOpts.currentClass}`}
