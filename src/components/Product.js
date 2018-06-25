@@ -2,8 +2,6 @@ import React from 'react';
 import { Price } from '../helpers';
 import Button from './Button';
 
-const Component = React.Component;
-
 const Product = ({ product, updateCartFromList }) => {
   const onSale = product.sale;
   const inStock = product.stock !== 0;

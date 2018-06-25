@@ -1,5 +1,4 @@
 import React from 'react';
-import CartTableHead from './CartTableHead';
 import ActiveCart from './ActiveCart';
 import EmptyCart from './EmptyCart';
 

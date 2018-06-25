@@ -1,6 +1,5 @@
 import React from 'react';
 import { Price } from '../helpers';
-import CartItemBtn from './CartItemBtn';
 import CartItemDesc from './CartItemDesc';
 import CartItemQty from './CartItemQty';
 import CartItemRemove from './CartItemRemove';
