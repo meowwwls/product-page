@@ -1,5 +1,9 @@
 import React from 'react';
+import { Price } from '../helpers';
 import CartItemBtn from './CartItemBtn';
+import CartItemDesc from './CartItemDesc';
+import CartItemQty from './CartItemQty';
+import CartItemRemove from './CartItemRemove';
 
 const Component = React.Component;
 
@@ -50,67 +54,31 @@ export default class CartItem extends Component {
   }
 
   dec() {
+    console.log('dec');
     this.setState({ qty: parseInt(this.state.qty, 10) - 1 });
     this.props.dec(this.props.product.id, 1);
   }
 
   render() {
-    const [prodType, size] = this.props.product.shortdesc;
     const price = this.props.product.sale || this.props.product.price;
 
     return (
       <tr>
-        <td>
-          <a
-            href="#"
-            className="cart-img-wrap"
-            aria-describedby={`${this.props.product.id}-cartdesc`}
-          >
-            <img src={this.props.product.src} alt="" />
-          </a>
-          <div
-            className="product-page-cart-item"
-            id={`${this.props.product.id}-cartdesc`}
-          >
-            <span className="product-page-cart-itemname">
-              <a href="#">{this.props.product.name}</a>
-            </span>&nbsp;
-            <span className="product-page-cart-itemdesc">{prodType}</span>&nbsp;
-            {size}
-          </div>
-        </td>
-        <td>{price}</td>
-        <td>
-          <CartItemBtn
-            label="decrease quantity"
-            handler={this.dec}
-            task="decrease"
-            inStock={this.props.product.stock}
-          />
-          <input
-            type="number"
-            aria-label="item quantity"
-            name="qty"
-            onChange={this.updateState}
-            value={this.state.qty}
-            onBlur={this.updateQty}
-          />
-          <CartItemBtn
-            label="increase quantity"
-            handler={this.inc}
-            task="increase"
-            inStock={this.props.product.stock}
-          />
-        </td>
-        <td>{price * this.props.product.qty}</td>
-        <td>
-          <CartItemBtn
-            label="remove item"
-            handler={() => this.props.remove(this.props.product.id)}
-            task="remove"
-            inStock={this.props.product.stock}
-          />
-        </td>
+        <CartItemDesc product={this.props.product} />
+        <CartItemQty
+          product={this.props.product}
+          qty={this.state.qty}
+          decrement={this.dec}
+          increment={this.inc}
+          updateState={this.updateState}
+          updateQty={this.updateQty}
+        />
+        <td>{Price(price)}</td>
+        <td>{Price(price * this.props.product.qty)}</td>
+        <CartItemRemove
+          product={this.props.product}
+          remove={this.props.remove}
+        />
       </tr>
     );
   }

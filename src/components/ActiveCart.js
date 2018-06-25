@@ -69,7 +69,7 @@ export default class ActiveCart extends Component {
     ));
 
     return (
-      <table>
+      <table className="product-page-cart">
         <CartTableHead headings={headers} />
         <tbody>{items}</tbody>
       </table>

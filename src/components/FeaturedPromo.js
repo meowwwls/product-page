@@ -1,9 +1,9 @@
 import React from 'react';
 
-const FeaturedPromo = props => (
-  <p>
-    <strong>{props.promo.promo}</strong> on {props.promo.onOrder}! Use code{' '}
-    {props.promo.code}.
+const FeaturedPromo = ({ promo }) => (
+  <p className="promo-code">
+    <strong className="promo-color">{promo.promo}</strong> on {promo.onOrder}!
+    Use code <strong className="promo-color">{promo.code}</strong>
   </p>
 );
 

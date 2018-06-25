@@ -4,12 +4,12 @@ import LoginLinks from './LoginLinks';
 import CartTally from './CartTally';
 
 const TopHeader = props => (
-  <div>
-    <FeaturedPromo promo={props.promo} />
-    <div>
+  <div className="top-links">
+    <div className="account-cart">
       <LoginLinks />
       <CartTally cart={props.cart} />
     </div>
+    <FeaturedPromo promo={props.promo} />
   </div>
 );
 

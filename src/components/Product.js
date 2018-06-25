@@ -3,65 +3,65 @@ import Button from './Button';
 
 const Component = React.Component;
 
-export default class Product extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addText: 'Add to Cart',
-      removeText: 'Remove from Cart'
+const Product = ({ product, updateCartFromList }) => {
+  const onSale = product.sale;
+  const price = onSale ? product.sale : product.price;
+  const inStock = product.stock !== 0;
+
+  const btnOpts = (() => {
+    let text;
+    let currentClass;
+
+    if ((product.inCart && !inStock) || (product.inCart && inStock)) {
+      text = 'Remove from Cart';
+      currentClass = 'added';
+    } else if (!product.inCart && inStock) {
+      text = 'Add to Cart';
+      currentClass = '';
+    } else {
+      text = 'Out of Stock';
+      currentClass = 'oos';
+    }
+
+    return {
+      text,
+      currentClass
     };
+  })();
 
-    this.handleClick = this.handleClick.bind(this);
-  }
+  const saleFlag = () => {
+    if (onSale) {
+      return <span className="sale-flag">Sale</span>;
+    } else {
+      return <div />;
+    }
+  };
 
-  handleClick() {
-    this.props.updateCartFromList(
-      this.props.product.inCart,
-      this.props.product.id
-    );
-  }
+  return (
+    <li className="product">
+      <header>
+        <h3 className="product-name">
+          <a href="#">{product.name}</a>
+        </h3>
+        <p className="product-desc">{product.longdesc}</p>
+      </header>
+      <div className="inner-img-wrap">
+        {saleFlag()}
+        <a href="#" className="product-img-wrap">
+          <img src={product.src} alt={product.longdesc} />
+        </a>
+      </div>
+      <p className="product-price">{price}</p>
+      <div className="product-add">
+        <Button
+          disabled={!inStock}
+          handler={() => updateCartFromList(product.inCart, product.id)}
+          text={btnOpts.text}
+          classNames={`btn ${btnOpts.currentClass}`}
+        />
+      </div>
+    </li>
+  );
+};
 
-  render() {
-    const onSale = this.props.product.sale;
-    const price = onSale ? this.props.product.sale : this.props.product.price;
-    // const inStock = this.props.product.stock;
-    const inStock = this.props.product.stock !== 0;
-
-    const btnText = () => {
-      let text;
-
-      if (
-        (this.props.product.inCart && !inStock) ||
-        (this.props.product.inCart && inStock)
-      ) {
-        text = 'Remove from Cart';
-      } else if (!this.props.product.inCart && inStock) {
-        text = 'Add to Cart';
-      } else {
-        text = 'Out of Stock';
-      }
-
-      return text;
-    };
-
-    return (
-      <li className={'product' + (onSale ? ' sale' : '')}>
-        <header>
-          <h3>{this.props.product.name}</h3>
-          <p>{this.props.product.desc}</p>
-        </header>
-        <div>
-          <img src={this.props.product.src} alt={this.props.product.longdesc} />
-        </div>
-        <p>{price}</p>
-        <div>
-          <Button
-            disabled={!inStock}
-            handler={this.handleClick}
-            text={btnText()}
-          />
-        </div>
-      </li>
-    );
-  }
-}
+export default Product;

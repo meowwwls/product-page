@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { render } from 'react-dom';
 import { Price } from './helpers';
 
@@ -8,6 +8,7 @@ import Categories from './components/Categories';
 import Products from './components/Products';
 import Cart from './components/Cart';
 import CartSummary from './components/CartSummary';
+import CartCheckoutLinks from './components/CartCheckoutLinks';
 
 import productData from './product-list.js';
 
@@ -172,6 +173,23 @@ class App extends Component {
   }
 
   render() {
+    const summary = () => {
+      if (this.state.cart.length) {
+        return (
+          <Fragment>
+            <CartSummary
+              items={this.updateSummary()}
+              apply={this.applyPromo}
+              promos={promos}
+            />
+            <CartCheckoutLinks />
+          </Fragment>
+        );
+      } else {
+        return <Fragment />;
+      }
+    };
+
     const {
       currentPage: page,
       featuredPromo: promo,
@@ -182,11 +200,11 @@ class App extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="container">
         <TopHeader promo={promo} cart={cart} />
         <PageHeader page={page} pageTitle={page + ' Prints'} />
         <Categories />
-        <main>
+        <main className="product-container">
           <Products products={products} updateCart={this.updateCartFromList} />
         </main>
 
@@ -198,14 +216,10 @@ class App extends Component {
           updateState={this.setProdAndCart}
           updateOrder={this.updateOrder}
         />
-        <p aria-live="polite" role="status">
+        {summary()}
+        <p aria-live="polite" role="status" className="sr-only">
           {status}
         </p>
-        <CartSummary
-          items={this.updateSummary()}
-          apply={this.applyPromo}
-          promos={promos}
-        />
       </div>
     );
   }

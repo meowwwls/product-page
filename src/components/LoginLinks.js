@@ -1,8 +1,8 @@
 import React from 'react';
 
 const LoginLinks = props => (
-  <span>
-    <a href="#">Sign In</a>
+  <span className="account">
+    <a href="#">Sign In</a>&nbsp;
     <a href="#">Register</a>
   </span>
 );

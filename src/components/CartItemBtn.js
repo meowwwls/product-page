@@ -4,7 +4,11 @@ import IncIcn from './IncIcn';
 import DecIcn from './DecIcn';
 
 const CartItemBtn = props => (
-  <button aria-label={props.label} onClick={props.handler}>
+  <button
+    aria-label={props.label}
+    onClick={props.handler}
+    className={props.classNames}
+  >
     {props.task === 'remove' ? (
       <RemoveIcn />
     ) : props.task === 'increase' ? (

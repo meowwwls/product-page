@@ -1,18 +1,14 @@
 import React from 'react';
 import Product from './Product';
 
-const Products = props => {
-  const items = props.products.map(item => {
+const Products = ({ products, updateCart }) => {
+  const items = products.map(item => {
     return (
-      <Product
-        key={item.id}
-        product={item}
-        updateCartFromList={props.updateCart}
-      />
+      <Product key={item.id} product={item} updateCartFromList={updateCart} />
     );
   });
 
-  return <ul>{items}</ul>;
+  return <ul className="product-list">{items}</ul>;
 };
 
 export default Products;
