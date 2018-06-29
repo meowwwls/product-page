@@ -124,12 +124,12 @@ s {
 .top-links .account a,
 .product-page-cart-itemname a,
 .product header a {
-  border-bottom: 0.0625rem solid #767676;
+  border-bottom: 0.1rem solid #767676;
 }
 
-.top-cart-links:hover,
-.top-cart-links:focus {
-  padding-bottom: 1em;
+a.top-cart-links {
+  padding-bottom: 1.5rem;
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0);
 }
 
 .top-links a:hover,
@@ -138,7 +138,7 @@ s {
 .product-page-cart-itemname a:focus,
 .top-cart-links:hover,
 .top-cart-links:focus {
-  border-bottom: 0.125rem solid #e7be00;
+  border-bottom-color: #e7be00;
 }
 
 .top-links .account,
@@ -153,7 +153,7 @@ s {
   width: 2rem;
   height: 2rem;
   margin-right: 0.5rem;
-  /* margin-top: -0.25rem; */
+  will-change: transform;
   -webkit-transition: -webkit-transform 0.2s ease-in-out;
   transition: -webkit-transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
@@ -204,10 +204,6 @@ h1 a {
   text-decoration: none;
 }
 
-/* .breadcrumbs {
-  display: none;
-} */
-
 .breadcrumbs .bread-trail::before {
   content: '/';
   padding: 0.25em;
@@ -215,25 +211,28 @@ h1 a {
 
 .breadcrumbs a {
   padding: 0.25em 0;
+  text-decoration: none;
+  border-bottom: 0.125rem solid rgba(255, 255, 255, 0);
+}
+
+a.breadcrumb-current {
+  border-bottom-color: #e7be00;
 }
 
 .breadcrumbs a:not(.breadcrumb-current) {
   color: #767676;
-  text-decoration: none;
   font-style: italic;
 }
 
 .breadcrumbs a:not(.breadcrumb-current):hover,
-.breadcrumbs a:not(.breadcrumb-current):focus,
-.breadcrumb-current {
+.breadcrumbs a:not(.breadcrumb-current):focus {
   color: #2b2b2b;
-  text-decoration: none;
-  border-bottom: 0.125rem solid #e7be00;
+  border-bottom-color: #e7be00;
 }
 
 .breadcrumb-current:hover,
 .breadcrumb-current:focus {
-  border-color: #2b2b2b;
+  border-bottom-color: #2b2b2b;
 }
 
 .header-img-container,
