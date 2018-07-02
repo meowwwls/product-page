@@ -94,7 +94,8 @@ s {
   color: #767676;
 }
 
-a:not(.btn):visited {
+a:not(.btn):visited,
+a:not(.btn) {
   color: #2b2b2b;
 }
 
