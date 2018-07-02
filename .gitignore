@@ -1,3 +1,4 @@
-node_modules
+node_modules/
+build/
 to-do.md
 .DS_STORE
