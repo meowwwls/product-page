@@ -4,8 +4,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462960861/md-projects/product-page/prod001.jpg',
+    src: '/images/prod001.jpg',
     price: 14.99,
     sale: null,
     stock: 12,
@@ -16,8 +15,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462963602/md-projects/product-page/prod002.jpg',
+    src: '/images/prod002.jpg',
     price: 14.99,
     sale: null,
     stock: 6,
@@ -28,8 +26,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod006.jpg',
+    src: '/images/prod003.jpg',
     price: 14.99,
     sale: null,
     stock: 17,
@@ -40,8 +37,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod005.jpg',
+    src: '/images/prod004.jpg',
     price: 14.99,
     sale: null,
     stock: 6,
@@ -52,8 +48,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod008.jpg',
+    src: '/images/prod005.jpg',
     price: 14.99,
     sale: null,
     stock: 0,
@@ -64,8 +59,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod007.jpg',
+    src: '/images/prod006.jpg',
     price: 14.99,
     sale: null,
     stock: 13,
@@ -76,8 +70,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod009.jpg',
+    src: '/images/prod007.jpg',
     price: 14.99,
     sale: null,
     stock: 9,
@@ -88,8 +81,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod010.jpg',
+    src: '/images/prod008.jpg',
     price: 14.99,
     sale: 12.99,
     stock: 13,
@@ -100,8 +92,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod003.jpg',
+    src: '/images/prod009.jpg',
     price: 14.99,
     sale: 9.99,
     stock: 1,
@@ -112,8 +103,7 @@ const products = [
     name: 'Product Name',
     longdesc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     shortdesc: ['Art Print', '8" x 10", unframed'],
-    src:
-      'http://res.cloudinary.com/meowwwls/image/upload/v1462966223/md-projects/product-page/prod004.jpg',
+    src: '/images/prod010.jpg',
     price: 14.99,
     sale: 9.99,
     stock: 0,

@@ -10,10 +10,7 @@ const PageHeader = props => (
     </h1>
     <Breadcrumbs currentPage={props.page} />
     <div className="header-img-container">
-      <img
-        src="http://res.cloudinary.com/meowwwls/image/upload/v1462972440/md-projects/product-page/print-header.jpg"
-        alt=""
-      />
+      <img src="/images/print-header.jpg" alt="Vintage Fashion Print" />
       <h2 className="product-page-title">{props.pageTitle}</h2>
     </div>
   </header>
